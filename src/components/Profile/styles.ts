@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
-  max-width: 864px;
-  width: 100%;
-  margin: 0 auto;
   padding: 2rem;
   border-radius: 10px;
   background-color: ${(props) => props.theme["base-profile"]};
@@ -36,10 +33,17 @@ export const ProfileContent = styled.div`
       color: ${(props) => props.theme.blue};
       font-size: 0.75rem;
       text-transform: uppercase;
+      text-decoration: none;
 
       display: flex;
       align-items: center;
       gap: 0.5rem;
+
+      transition: text-decoration 0.5s;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
