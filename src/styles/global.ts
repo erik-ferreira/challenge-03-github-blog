@@ -40,4 +40,8 @@ export const GlobalStyle = createGlobalStyle`
     opacity: 0.8;
     cursor: not-allowed;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
