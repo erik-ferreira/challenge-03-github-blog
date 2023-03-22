@@ -1,10 +1,19 @@
-import { api } from "../../services/api";
 import { useEffect, useState } from "react";
+import { MagnifyingGlass } from "phosphor-react";
 
-import { Post, PostProps } from "../../components/Post";
 import { Profile } from "../../components/Profile";
+import { Post, PostProps } from "../../components/Post";
 
-import { ContentMain, InfoPublications, Input, ContentPosts } from "./styles";
+import { api } from "../../services/api";
+
+import {
+  ContentMain,
+  InfoPublications,
+  Search,
+  Input,
+  ButtonSearch,
+  ContentPosts,
+} from "./styles";
 
 interface PostRequest {
   items: PostProps[];
@@ -12,6 +21,7 @@ interface PostRequest {
 
 export function Home() {
   const [posts, setPosts] = useState<PostProps[]>([]);
+  const filteredPost = [];
 
   async function loadPosts() {
     const response = await api.get<PostRequest>(
@@ -36,7 +46,13 @@ export function Home() {
           <span>{posts.length} publicações</span>
         </InfoPublications>
 
-        <Input placeholder="Buscar conteúdo" />
+        <Search>
+          <Input placeholder="Buscar conteúdo" />
+          <ButtonSearch>
+            <MagnifyingGlass size={20} />
+            Pesquisar
+          </ButtonSearch>
+        </Search>
 
         <ContentPosts>
           {posts.map((post) => (
@@ -47,5 +63,3 @@ export function Home() {
     </main>
   );
 }
-
-// https://api.github.com/search/issues?q=%20repo:rocketseat-education/reactjs-github-blog-challenge

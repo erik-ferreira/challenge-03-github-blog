@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   CaretLeft,
   ArrowSquareIn,
@@ -10,6 +10,10 @@ import {
 import { ContainerPost, Info, Footer, Content } from "./styles";
 
 export function Post() {
+  const params = useParams();
+
+  console.log(params);
+
   return (
     <main>
       <ContainerPost>

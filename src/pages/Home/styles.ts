@@ -27,8 +27,13 @@ export const InfoPublications = styled.div`
   }
 `;
 
+export const Search = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
 export const Input = styled.input`
-  width: 100%;
+  flex: 1;
   height: 3.125rem;
   border-radius: 6px;
   padding: 0.75rem 1rem;
@@ -40,6 +45,33 @@ export const Input = styled.input`
 
   &::placeholder {
     color: ${(props) => props.theme["base-label"]};
+  }
+`;
+
+export const ButtonSearch = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  height: 3.125rem;
+  border: 0;
+  border-radius: 6px;
+  border: 1px solid ${(props) => props.theme.blue};
+  color: ${(props) => props.theme.blue};
+  background-color: transparent;
+  padding: 0 1rem;
+  font-weight: bold;
+
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+
+  &:not(:disabled):hover {
+    border-color: ${(props) => props.theme.blue};
+    background-color: ${(props) => props.theme.blue};
+    color: ${(props) => props.theme.white};
+  }
+
+  &:disabled {
+    opacity: 0.7;
   }
 `;
 

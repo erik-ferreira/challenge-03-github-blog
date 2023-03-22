@@ -8,7 +8,6 @@ export interface PostProps {
   body: string | null;
   created_at: string;
   number: number;
-  html_url: string;
 }
 
 interface PostComponentProps {
@@ -23,7 +22,7 @@ export function Post({ post }: PostComponentProps) {
   const bodyFormat = post.body?.substring(0, 340) || "";
 
   return (
-    <PostContainer to={post.html_url} target="_blank">
+    <PostContainer to={`/post/${post.number}`}>
       <article>
         <div>
           <h2>{post.title}</h2>
