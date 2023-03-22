@@ -27,7 +27,7 @@ export const InfoPublications = styled.div`
   }
 `;
 
-export const Search = styled.div`
+export const Search = styled.form`
   display: flex;
   gap: 1rem;
 `;
