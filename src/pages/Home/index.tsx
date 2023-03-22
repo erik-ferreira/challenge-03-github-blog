@@ -23,7 +23,7 @@ export function Home() {
         <Input placeholder="Buscar conteúdo" />
 
         <ContentPosts>
-          <Post href="">
+          <Post to="/post">
             <article>
               <div>
                 <h2>JavaScript data types and data structures</h2>
@@ -41,7 +41,7 @@ export function Home() {
             </article>
           </Post>
 
-          <Post href="">
+          <Post to="/post">
             <article>
               <div>
                 <h2>JavaScript data types and data structures</h2>
@@ -59,7 +59,7 @@ export function Home() {
             </article>
           </Post>
 
-          <Post href="">
+          <Post to="/post">
             <article>
               <div>
                 <h2>JavaScript data types and data structures</h2>
@@ -77,7 +77,7 @@ export function Home() {
             </article>
           </Post>
 
-          <Post href="">
+          <Post to="/post">
             <article>
               <div>
                 <h2>JavaScript data types and data structures</h2>
