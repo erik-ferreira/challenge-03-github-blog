@@ -1,42 +1,65 @@
+import { Link } from "react-router-dom";
+import { api } from "../../services/api";
+import { useEffect, useState } from "react";
 import { ArrowSquareIn, GithubLogo, Buildings, Users } from "phosphor-react";
 
 import { ProfileContainer, ProfileContent, Info } from "./styles";
 
+interface Profile {
+  avatar_url: string;
+  name: string;
+  bio: string;
+  login: string;
+  company: string | null;
+  followers: number;
+  html_url: string;
+}
+
 export function Profile() {
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  async function getDataProfile() {
+    const response = await api.get<Profile>("/users/erik-ferreira");
+
+    setProfile(response.data);
+  }
+
+  useEffect(() => {
+    getDataProfile();
+  }, []);
+
   return (
     <ProfileContainer>
-      <img src="https://github.com/erik-ferreira.png" />
+      <img src={profile?.avatar_url} />
 
       <ProfileContent>
         <div>
-          <h1>Erik Ferreira</h1>
+          <h1>{profile?.name}</h1>
 
-          <a href="#">
+          <Link to={profile?.html_url || ""} target="_blank">
             GITHUB
             <ArrowSquareIn size={16} />
-          </a>
+          </Link>
         </div>
 
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p>{profile?.bio}</p>
 
         <Info>
           <li>
             <GithubLogo size={18} />
-            cameronwll
+            {profile?.login}
           </li>
 
-          <li>
-            <Buildings size={18} />
-            Rocketseat
-          </li>
+          {profile?.company && (
+            <li>
+              <Buildings size={18} />
+              {profile?.company}
+            </li>
+          )}
 
           <li>
             <Users size={18} />
-            32 seguidores
+            {profile?.followers} seguidores
           </li>
         </Info>
       </ProfileContent>
