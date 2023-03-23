@@ -19,7 +19,7 @@ export function Post({ post }: PostComponentProps) {
     addSuffix: true,
     locale: ptBR,
   });
-  const bodyFormat = post.body?.substring(0, 340) || "";
+  const bodyFormat: string | null = post.body?.substring(0, 340) || "";
 
   return (
     <PostContainer to={`/post/${post.number}`}>
@@ -29,7 +29,7 @@ export function Post({ post }: PostComponentProps) {
           <span>{createdAtFormat}</span>
         </div>
 
-        <p>{bodyFormat}</p>
+        {bodyFormat && <p>{bodyFormat}</p>}
       </article>
     </PostContainer>
   );
