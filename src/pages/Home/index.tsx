@@ -17,25 +17,23 @@ import {
   ButtonSearch,
   ContentPosts,
 } from "./styles";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 interface PostRequest {
   items: PostProps[];
 }
 
 const searchPostFormSchema = zod.object({
-  search: zod.string().min(1, "Preencha o campo para realizar a busca"),
+  search: zod.string(),
 });
 
 type SearchFormInputs = zod.infer<typeof searchPostFormSchema>;
 
 export function Home() {
   const [posts, setPosts] = useState<PostProps[]>([]);
+  const [loadingPost, setLoadingPosts] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SearchFormInputs>({
+  const { register, handleSubmit } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchPostFormSchema),
     defaultValues: {
       search: "",
@@ -43,6 +41,7 @@ export function Home() {
   });
 
   async function loadPosts(search?: string) {
+    setLoadingPosts(true);
     const response = await api.get<PostRequest>(
       `/search/issues?q=${
         search || ""
@@ -50,6 +49,7 @@ export function Home() {
     );
 
     setPosts(response.data?.items);
+    setLoadingPosts(false);
   }
 
   function handleSearchPost(data: SearchFormInputs) {
@@ -73,18 +73,22 @@ export function Home() {
 
         <Search onSubmit={handleSubmit(handleSearchPost)}>
           <Input placeholder="Buscar conteúdo" {...register("search")} />
-          {errors?.search?.message}
+
           <ButtonSearch>
             <MagnifyingGlass size={20} />
             Pesquisar
           </ButtonSearch>
         </Search>
 
-        <ContentPosts>
-          {posts.map((post) => (
-            <Post key={post.number} post={post} />
-          ))}
-        </ContentPosts>
+        {loadingPost ? (
+          <LoadingSpinner />
+        ) : (
+          <ContentPosts>
+            {posts.map((post) => (
+              <Post key={post.number} post={post} />
+            ))}
+          </ContentPosts>
+        )}
       </ContentMain>
     </main>
   );
