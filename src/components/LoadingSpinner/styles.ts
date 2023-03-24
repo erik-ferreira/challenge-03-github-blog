@@ -13,6 +13,7 @@ export const LoadingSpinnerContainer = styled.div<LoadingSpinnerContainerProps>`
       transform: rotate(360deg);
     }
   }
+  width: 100%;
 
   .loading-spinner {
     width: ${(props) => props.size}px;

@@ -7,17 +7,20 @@ import { GlobalStyle } from "./styles/global";
 import { defaultTheme } from "./styles/themes/default";
 
 import { Router } from "./Router";
+import { AppContext } from "./context";
 
 export function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+    <AppContext>
+      <ThemeProvider theme={defaultTheme}>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
 
-      <GlobalStyle />
+        <GlobalStyle />
 
-      <ToastContainer autoClose={1500} position="bottom-right" theme="dark" />
-    </ThemeProvider>
+        <ToastContainer autoClose={1500} position="bottom-right" theme="dark" />
+      </ThemeProvider>
+    </AppContext>
   );
 }

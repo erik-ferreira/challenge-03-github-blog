@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export const PostContainer = styled(Link)`
   padding: 2rem;
   max-height: 16.25rem;
+  max-width: 26rem;
   border-radius: 10px;
   background-color: ${(props) => props.theme["base-post"]};
   border: 2px solid ${(props) => props.theme["base-post"]};

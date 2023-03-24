@@ -14,12 +14,15 @@ import { Link, useParams } from "react-router-dom";
 import { PostProps } from "../../components/Post";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
+import { useProfile } from "../../context/ProfileContext";
+
 import { api } from "../../services/api";
 
 import { ContainerPost, Info, Footer, Content } from "./styles";
 
 export function Post() {
   const params = useParams();
+  const { profile } = useProfile();
 
   const [post, setPost] = useState<PostProps | null>(null);
   const [loadingPost, setLoadingPosts] = useState(false);
@@ -69,10 +72,12 @@ export function Post() {
             <h1>{post?.title}</h1>
 
             <Footer>
-              <li>
-                <GithubLogo size={18} />
-                cameronwll
-              </li>
+              {profile && (
+                <li>
+                  <GithubLogo size={18} />
+                  {profile.name}
+                </li>
+              )}
 
               {post && (
                 <>

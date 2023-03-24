@@ -1,4 +1,5 @@
 import * as zod from "zod";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { MagnifyingGlass } from "phosphor-react";
@@ -6,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Profile } from "../../components/Profile";
 import { Post, PostProps } from "../../components/Post";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 import { api } from "../../services/api";
 
@@ -17,7 +19,6 @@ import {
   ButtonSearch,
   ContentPosts,
 } from "./styles";
-import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 interface PostRequest {
   items: PostProps[];
@@ -41,13 +42,20 @@ export function Home() {
   });
 
   async function loadPosts(search?: string) {
-    setLoadingPosts(true);
-    const response = await api.get<PostRequest>(
-      `/search/issues?q=${search || ""}%20repo:Shopify/react-native-skia`
-    );
+    try {
+      setLoadingPosts(true);
+      const response = await api.get<PostRequest>(
+        `/search/issues?q=${search || ""}%20repo:Shopify/react-native-skia`
+      );
 
-    setPosts(response.data?.items);
-    setLoadingPosts(false);
+      if (response.status === 200) {
+        setPosts(response.data?.items);
+      }
+    } catch (error) {
+      toast.error("Não foi possível carregar a lista de posts.");
+    } finally {
+      setLoadingPosts(false);
+    }
   }
 
   function handleSearchPost(data: SearchFormInputs) {
