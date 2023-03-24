@@ -72,17 +72,57 @@ export const Footer = styled.ul`
 
 export const Content = styled.div`
   padding: 2.5rem;
+  white-space: pre-wrap;
 
-  p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: ${(props) => props.theme["base-text"]};
-    margin-bottom: 1rem;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: ${(props) => props.theme.blue};
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  a {
+    color: ${(props) => props.theme.blue};
+
+    &:hover {
+      transition: border 2s;
+      border-bottom: 1px solid ${(props) => props.theme.blue};
+    }
+  }
+
+  li {
+    margin-left: 1.5rem;
+  }
+
+  img {
+    max-width: 100%;
   }
 
   pre {
-    border-radius: 2px;
     padding: 1rem;
+    border-radius: 4px;
     background-color: ${(props) => props.theme["base-post"]};
+    overflow-x: scroll;
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: ${(props) => props.theme["base-profile"]};
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${(props) => props.theme.blue};
+    }
   }
 `;

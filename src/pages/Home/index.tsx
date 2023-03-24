@@ -31,7 +31,7 @@ type SearchFormInputs = zod.infer<typeof searchPostFormSchema>;
 
 export function Home() {
   const [posts, setPosts] = useState<PostProps[]>([]);
-  const [loadingPost, setLoadingPosts] = useState(false);
+  const [loadingPosts, setLoadingPosts] = useState(false);
 
   const { register, handleSubmit } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchPostFormSchema),
@@ -43,9 +43,7 @@ export function Home() {
   async function loadPosts(search?: string) {
     setLoadingPosts(true);
     const response = await api.get<PostRequest>(
-      `/search/issues?q=${
-        search || ""
-      }%20repo:rocketseat-education/reactjs-github-blog-challenge`
+      `/search/issues?q=${search || ""}%20repo:Shopify/react-native-skia`
     );
 
     setPosts(response.data?.items);
@@ -80,7 +78,7 @@ export function Home() {
           </ButtonSearch>
         </Search>
 
-        {loadingPost ? (
+        {loadingPosts ? (
           <LoadingSpinner />
         ) : (
           <ContentPosts>
