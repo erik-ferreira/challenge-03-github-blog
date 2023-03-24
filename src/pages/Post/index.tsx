@@ -6,6 +6,7 @@ import {
   ChatCircle,
 } from "phosphor-react";
 import remarkGfm from "remark-gfm";
+import { toast } from "react-toastify";
 import ReactMarkdown from "react-markdown";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -24,13 +25,20 @@ export function Post() {
   const [loadingPost, setLoadingPosts] = useState(false);
 
   async function loadDataPost() {
-    setLoadingPosts(true);
-    const response = await api.get<PostProps>(
-      `/repos/Shopify/react-native-skia/issues/${params.numberIssue}`
-    );
+    try {
+      setLoadingPosts(true);
+      const response = await api.get<PostProps>(
+        `/repos/Shopify/react-native-skia/issues/${params.numberIssue}`
+      );
 
-    setPost(response.data);
-    setLoadingPosts(false);
+      if (response.status === 200) {
+        setPost(response.data);
+      }
+    } catch (error) {
+      toast.error("Não foi possível carregar o post.");
+    } finally {
+      setLoadingPosts(false);
+    }
   }
 
   useEffect(() => {
@@ -50,10 +58,12 @@ export function Post() {
                 Voltar
               </Link>
 
-              <Link to="">
-                Ver no Github
-                <ArrowSquareIn size={16} />
-              </Link>
+              {post && (
+                <Link to="">
+                  Ver no Github
+                  <ArrowSquareIn size={16} />
+                </Link>
+              )}
             </div>
 
             <h1>{post?.title}</h1>
@@ -64,14 +74,18 @@ export function Post() {
                 cameronwll
               </li>
 
-              <li>
-                <CalendarBlank size={18} />
-                Há 1 dia
-              </li>
+              {post && (
+                <>
+                  <li>
+                    <CalendarBlank size={18} />
+                    Há 1 dia
+                  </li>
 
-              <li>
-                <ChatCircle size={18} />5 comentários
-              </li>
+                  <li>
+                    <ChatCircle size={18} />5 comentários
+                  </li>
+                </>
+              )}
             </Footer>
           </Info>
 
