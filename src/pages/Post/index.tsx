@@ -7,8 +7,10 @@ import {
 } from "phosphor-react";
 import remarkGfm from "remark-gfm";
 import { toast } from "react-toastify";
+import ptBR from "date-fns/locale/pt-BR";
 import ReactMarkdown from "react-markdown";
 import { useState, useEffect } from "react";
+import { formatDistanceToNow } from "date-fns";
 import { Link, useParams } from "react-router-dom";
 
 import { PostProps } from "../../components/Post";
@@ -20,18 +22,29 @@ import { api } from "../../services/api";
 
 import { ContainerPost, Info, Footer, Content } from "./styles";
 
+interface DetailsPost extends PostProps {
+  comments: number;
+}
+
 export function Post() {
   const params = useParams();
   const { profile } = useProfile();
 
-  const [post, setPost] = useState<PostProps | null>(null);
+  const [post, setPost] = useState<DetailsPost | null>(null);
   const [loadingPost, setLoadingPosts] = useState(false);
+
+  const createdAtFormat = post
+    ? formatDistanceToNow(new Date(post?.created_at), {
+        addSuffix: true,
+        locale: ptBR,
+      })
+    : "";
 
   async function loadDataPost() {
     try {
       setLoadingPosts(true);
-      const response = await api.get<PostProps>(
-        `/repos/Shopify/react-native-skia/issues/${params.numberIssue}`
+      const response = await api.get<DetailsPost>(
+        `/repos/erik-ferreira/challenge-03-github-blog/issues/${params.numberIssue}`
       );
 
       if (response.status === 200) {
@@ -83,11 +96,12 @@ export function Post() {
                 <>
                   <li>
                     <CalendarBlank size={18} />
-                    Há 1 dia
+                    {createdAtFormat}
                   </li>
 
                   <li>
-                    <ChatCircle size={18} />5 comentários
+                    <ChatCircle size={18} />
+                    {post?.comments} comentários
                   </li>
                 </>
               )}

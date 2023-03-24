@@ -45,7 +45,9 @@ export function Home() {
     try {
       setLoadingPosts(true);
       const response = await api.get<PostRequest>(
-        `/search/issues?q=${search || ""}%20repo:Shopify/react-native-skia`
+        `/search/issues?q=${
+          search || ""
+        }%20repo:erik-ferreira/challenge-03-github-blog`
       );
 
       if (response.status === 200) {
