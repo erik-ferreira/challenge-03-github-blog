@@ -61,61 +61,57 @@ export function Post() {
     loadDataPost();
   }, []);
 
-  return (
-    <main>
-      {loadingPost ? (
-        <LoadingSpinner />
-      ) : (
-        <ContainerPost>
-          <Info>
-            <div>
-              <Link to="/">
-                <CaretLeft size={16} />
-                Voltar
-              </Link>
+  return loadingPost ? (
+    <LoadingSpinner />
+  ) : (
+    <ContainerPost>
+      <Info>
+        <div>
+          <Link to="/">
+            <CaretLeft size={16} />
+            Voltar
+          </Link>
 
-              {post && (
-                <Link to="">
-                  Ver no Github
-                  <ArrowSquareIn size={16} />
-                </Link>
-              )}
-            </div>
+          {post && (
+            <Link to="">
+              Ver no Github
+              <ArrowSquareIn size={16} />
+            </Link>
+          )}
+        </div>
 
-            <h1>{post?.title}</h1>
+        <h1>{post?.title}</h1>
 
-            <Footer>
-              {profile && (
-                <li>
-                  <GithubLogo size={18} />
-                  {profile.name}
-                </li>
-              )}
+        <Footer>
+          {profile && (
+            <li>
+              <GithubLogo size={18} />
+              {profile.name}
+            </li>
+          )}
 
-              {post && (
-                <>
-                  <li>
-                    <CalendarBlank size={18} />
-                    {createdAtFormat}
-                  </li>
+          {post && (
+            <>
+              <li>
+                <CalendarBlank size={18} />
+                {createdAtFormat}
+              </li>
 
-                  <li>
-                    <ChatCircle size={18} />
-                    {post?.comments} comentários
-                  </li>
-                </>
-              )}
-            </Footer>
-          </Info>
+              <li>
+                <ChatCircle size={18} />
+                {post?.comments} comentários
+              </li>
+            </>
+          )}
+        </Footer>
+      </Info>
 
-          <Content>
-            <ReactMarkdown
-              children={post?.body || ""}
-              remarkPlugins={[remarkGfm]}
-            />
-          </Content>
-        </ContainerPost>
-      )}
-    </main>
+      <Content>
+        <ReactMarkdown
+          children={post?.body || ""}
+          remarkPlugins={[remarkGfm]}
+        />
+      </Content>
+    </ContainerPost>
   );
 }

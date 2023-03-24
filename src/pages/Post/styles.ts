@@ -45,6 +45,10 @@ export const Info = styled.div`
     line-height: 1.3;
     color: ${(props) => props.theme["base-title"]};
     margin: 1.5rem 0 0.5rem;
+
+    @media screen and (max-width: 410px) {
+      text-align: center;
+    }
   }
 `;
 
@@ -54,6 +58,12 @@ export const Footer = styled.ul`
   display: flex;
   align-items: center;
   gap: 1.5rem;
+
+  @media screen and (max-width: 410px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 
   li {
     font-size: 1rem;
@@ -88,6 +98,7 @@ export const Content = styled.div`
 
   a {
     color: ${(props) => props.theme.blue};
+    word-wrap: break-word;
 
     &:hover {
       transition: border 2s;

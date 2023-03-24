@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContentMain = styled.div`
+export const ContainerHome = styled.div`
   max-width: 864px;
   width: 100%;
   margin: 0 auto;
@@ -30,6 +30,10 @@ export const InfoPublications = styled.div`
 export const Search = styled.form`
   display: flex;
   gap: 1rem;
+
+  @media screen and (max-width: 390px) {
+    flex-direction: column;
+  }
 `;
 
 export const Input = styled.input`
@@ -51,6 +55,7 @@ export const Input = styled.input`
 export const ButtonSearch = styled.button`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 
   height: 3.125rem;
@@ -80,4 +85,8 @@ export const ContentPosts = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin-top: 3rem;
+
+  @media screen and (max-width: 720px) {
+    grid-template-columns: 1fr;
+  }
 `;

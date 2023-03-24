@@ -4,7 +4,7 @@ export const ProfileContainer = styled.div`
   padding: 2rem;
   border-radius: 10px;
   background-color: ${(props) => props.theme["base-profile"]};
-  margin-top: -60px;
+  margin-top: -3.75rem;
   box-shadow: 0px 2px 28px rgba(0, 0, 0, 0.2);
 
   display: flex;
@@ -14,6 +14,14 @@ export const ProfileContainer = styled.div`
     width: 9.125rem;
     height: 9.125rem;
     border-radius: 8px;
+  }
+
+  @media screen and (max-width: 560px) {
+    flex-direction: column;
+
+    img {
+      margin: 0 auto;
+    }
   }
 `;
 
@@ -62,6 +70,11 @@ export const Info = styled.ul`
   align-items: center;
   gap: 1.5rem;
   margin-top: 1.75rem;
+
+  @media screen and (max-width: 350px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   li {
     font-size: 1rem;

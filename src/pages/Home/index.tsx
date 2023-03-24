@@ -12,7 +12,7 @@ import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { api } from "../../services/api";
 
 import {
-  ContentMain,
+  ContainerHome,
   InfoPublications,
   Search,
   Input,
@@ -69,35 +69,33 @@ export function Home() {
   }, []);
 
   return (
-    <main>
-      <ContentMain>
-        <Profile />
+    <ContainerHome>
+      <Profile />
 
-        <InfoPublications>
-          <h2>Publicações</h2>
+      <InfoPublications>
+        <h2>Publicações</h2>
 
-          <span>{posts.length} publicações</span>
-        </InfoPublications>
+        <span>{posts.length} publicações</span>
+      </InfoPublications>
 
-        <Search onSubmit={handleSubmit(handleSearchPost)}>
-          <Input placeholder="Buscar conteúdo" {...register("search")} />
+      <Search onSubmit={handleSubmit(handleSearchPost)}>
+        <Input placeholder="Buscar conteúdo" {...register("search")} />
 
-          <ButtonSearch>
-            <MagnifyingGlass size={20} />
-            Pesquisar
-          </ButtonSearch>
-        </Search>
+        <ButtonSearch>
+          <MagnifyingGlass size={20} />
+          Pesquisar
+        </ButtonSearch>
+      </Search>
 
-        {loadingPosts ? (
-          <LoadingSpinner />
-        ) : (
-          <ContentPosts>
-            {posts.map((post) => (
-              <Post key={post.number} post={post} />
-            ))}
-          </ContentPosts>
-        )}
-      </ContentMain>
-    </main>
+      {loadingPosts ? (
+        <LoadingSpinner />
+      ) : (
+        <ContentPosts>
+          {posts.map((post) => (
+            <Post key={post.number} post={post} />
+          ))}
+        </ContentPosts>
+      )}
+    </ContainerHome>
   );
 }

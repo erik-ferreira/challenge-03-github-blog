@@ -14,6 +14,10 @@ export const PostContainer = styled(Link)`
     border-color: ${(props) => props.theme["base-label"]};
   }
 
+  @media screen and (max-width: 720px) {
+    max-width: none;
+  }
+
   div {
     display: flex;
     gap: 1rem;
@@ -48,5 +52,9 @@ export const PostContainer = styled(Link)`
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     white-space: normal;
+
+    @media screen and (max-width: 340px) {
+      -webkit-line-clamp: 3;
+    }
   }
 `;
