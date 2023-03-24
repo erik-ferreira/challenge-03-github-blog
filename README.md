@@ -4,7 +4,7 @@
 
 ## :computer: Projeto
 
-Este é um projeto que apresenta issues de um repositório como posts. Também é possível visualizar o post completo e realizar uma busca por um post específico.
+Este é um projeto de desafio da Rocketseat onde as issues de um repositório do github são apresentadas como posts. Também é possível visualizar o post completo e realizar uma busca por um post específico.
 
 ## :rocket: Tecnologias
 
