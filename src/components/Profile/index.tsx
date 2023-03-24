@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowSquareIn, GithubLogo, Buildings, Users } from "phosphor-react";
 
@@ -6,7 +7,7 @@ import { useProfile } from "../../context/ProfileContext";
 import { ProfileContainer, ProfileContent, Info } from "./styles";
 import { LoadingSpinner } from "../LoadingSpinner";
 
-export function Profile() {
+function ProfileComponent() {
   const { profile, loadingProfile } = useProfile();
 
   return (
@@ -53,3 +54,5 @@ export function Profile() {
     </ProfileContainer>
   );
 }
+
+export const Profile = memo(ProfileComponent);

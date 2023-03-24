@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
+import { PostsProvider } from "./PostsContext";
 import { ProfileProvider } from "./ProfileContext";
 
 interface AppContextProps {
@@ -7,5 +8,9 @@ interface AppContextProps {
 }
 
 export function AppContext({ children }: AppContextProps) {
-  return <ProfileProvider>{children}</ProfileProvider>;
+  return (
+    <ProfileProvider>
+      <PostsProvider>{children}</PostsProvider>
+    </ProfileProvider>
+  );
 }

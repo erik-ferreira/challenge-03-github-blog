@@ -1,15 +1,14 @@
 import * as zod from "zod";
-import { toast } from "react-toastify";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
 import { MagnifyingGlass } from "phosphor-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { Post } from "../../components/Post";
 import { Profile } from "../../components/Profile";
-import { Post, PostProps } from "../../components/Post";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
-import { api } from "../../services/api";
+import { usePosts } from "../../context/PostsContext";
 
 import {
   ContainerHome,
@@ -20,10 +19,6 @@ import {
   ContentPosts,
 } from "./styles";
 
-interface PostRequest {
-  items: PostProps[];
-}
-
 const searchPostFormSchema = zod.object({
   search: zod.string(),
 });
@@ -31,8 +26,7 @@ const searchPostFormSchema = zod.object({
 type SearchFormInputs = zod.infer<typeof searchPostFormSchema>;
 
 export function Home() {
-  const [posts, setPosts] = useState<PostProps[]>([]);
-  const [loadingPosts, setLoadingPosts] = useState(false);
+  const { posts, loadingPosts, loadPosts } = usePosts();
 
   const { register, handleSubmit } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchPostFormSchema),
@@ -40,25 +34,6 @@ export function Home() {
       search: "",
     },
   });
-
-  async function loadPosts(search?: string) {
-    try {
-      setLoadingPosts(true);
-      const response = await api.get<PostRequest>(
-        `/search/issues?q=${
-          search || ""
-        }%20repo:erik-ferreira/challenge-03-github-blog`
-      );
-
-      if (response.status === 200) {
-        setPosts(response.data?.items);
-      }
-    } catch (error) {
-      toast.error("Não foi possível carregar a lista de posts.");
-    } finally {
-      setLoadingPosts(false);
-    }
-  }
 
   function handleSearchPost(data: SearchFormInputs) {
     loadPosts(data.search);
